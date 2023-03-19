@@ -1,25 +1,36 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import CreateNotes from './Componeents/CreateNotes';
+import {Box} from "@mui/material"
+import Header from './Componeents/Header';
+import Notes from './Componeents/Notes';
+import { useState } from "react"
 
 function App() {
+
+interface ObjectNote {
+    id : number,
+    title : string,
+    details : string,
+    text: string,
+    color: string,
+    date : string
+  }
+  
+  
+  const [notes , setNotes] = useState<ObjectNote[]>([])
+
+  const addNotes = (note : ObjectNote) => {
+    setNotes([note , ...notes])
+  } 
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+    <Header/>
+<Box style={{ padding : "20px" }}>
+    <CreateNotes addNotes={addNotes} />
+    <Notes notes ={notes}/>
+</Box>
+    </>
   );
 }
 
